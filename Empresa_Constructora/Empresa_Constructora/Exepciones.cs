@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Empresa_Constructora
 {
@@ -16,4 +16,5 @@ namespace Empresa_Constructora
     {
         public GrupoObrerosNoEncontradoException(string mensaje) : base(mensaje) { }
     }
+   
 }
