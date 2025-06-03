@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 
 namespace Empresa_Constructora
@@ -9,7 +9,7 @@ namespace Empresa_Constructora
 
         static void Main(string[] args)
         {
-            // Crear grupos de ejemplo con menos líneas
+            // Crear 8 grupos (Grupo A a H)
             for (int i = 1; i <= 8; i++)
             {
                 miEmpresa.TodosLosGrupos.Add(new GrupoObreros(i, "Grupo " + (char)('A' + i - 1)));
@@ -23,7 +23,8 @@ namespace Empresa_Constructora
                 Console.WriteLine("\nMenú:");
                 Console.WriteLine("1 - Contratar obrero");
                 Console.WriteLine("2 - Asignar obrero a grupo");
-                Console.WriteLine("3 - Salir");
+                Console.WriteLine("3 - Eliminar obrero o jefe por legajo");
+                Console.WriteLine("4 - Salir");
                 Console.Write("Seleccione una opción: ");
                 string opcion = Console.ReadLine();
 
@@ -36,6 +37,9 @@ namespace Empresa_Constructora
                         AsignarObreroAGrupo();
                         break;
                     case "3":
+                        EliminarObreroJefe();
+                        break;
+                    case "4":
                         continuar = false;
                         break;
                     default:
@@ -106,6 +110,24 @@ namespace Empresa_Constructora
             catch (FormatException)
             {
                 Console.WriteLine("ERROR: Ingrese valores numéricos válidos.");
+            }
+        }
+
+        static void EliminarObreroJefe()
+        {
+            try
+            {
+                Console.Write("Ingrese el legajo del obrero o jefe a eliminar: ");
+                int legajo = int.Parse(Console.ReadLine());
+                miEmpresa.EliminarObreroPorLegajo(legajo);
+            }
+            catch (ObreroNoEncontradoException ex)
+            {
+                Console.WriteLine("ERROR: " + ex.Message);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("ERROR: Ingrese un número válido.");
             }
         }
     }
