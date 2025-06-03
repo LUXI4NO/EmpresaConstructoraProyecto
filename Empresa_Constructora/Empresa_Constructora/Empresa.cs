@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 
 namespace Empresa_Constructora
@@ -63,8 +63,40 @@ namespace Empresa_Constructora
             if (grupoEncontrado == null)
                 throw new GrupoObrerosNoEncontradoException("No se encontró grupo con ID " + grupoId);
 
-            grupoEncontrado.ObrerosDelGrupo.Add(obreroEncontrado);
+            grupoEncontrado.ListaObreros .Add(obreroEncontrado);
             Console.WriteLine("Se asignó a " + obreroEncontrado.Nombre + " " + obreroEncontrado.Apellido + " al grupo " + grupoEncontrado.NombreGrupo);
         }
+        
+       
+		public void EliminarObreroPorLegajo(int legajo)
+		{
+		    Obrero obreroAEliminar = null;
+		
+		    foreach (Obrero o in TodosLosObreros)
+		    {
+		        if (o.Legajo == legajo)
+		        {
+		            obreroAEliminar = o;
+		            break;
+		        }
+		    }
+		
+		    if (obreroAEliminar != null)
+		    {
+		        TodosLosObreros.Remove(obreroAEliminar);
+		
+		        foreach (GrupoObreros grupo in TodosLosGrupos)
+		        {
+		            grupo.EliminarObreros(legajo);
+		        }
+		
+		        Console.WriteLine("Obrero eliminado completamente: " + obreroAEliminar.Nombre + " " + obreroAEliminar.Apellido);
+		    }
+		    else
+		    {
+		        throw new ObreroNoEncontradoException("No se encontró un obrero con legajo " + legajo);
+		    }
+		}
+
     }
 }
